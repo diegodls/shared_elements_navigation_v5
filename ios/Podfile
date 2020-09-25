@@ -8,6 +8,8 @@ target 'shared_elements_navigation_v5' do
 
   use_react_native!(:path => config["reactNativePath"])
 
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
   target 'shared_elements_navigation_v5Tests' do
     inherit! :complete
     # Pods for testing
