@@ -1,32 +1,58 @@
 import React from 'react';
-import { View, StyleSheet, Text, TouchableWithoutFeedback } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Text,
+  TouchableWithoutFeedback,
+  FlatList,
+  Image,
+  SafeAreaView,
+  StatusBar,
+  TouchableOpacity,
+} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import IconFE from 'react-native-vector-icons/Feather';
 
 IconFE.loadFont();
+
+//THEME
 import colors from '../../styles/colors';
 
+import image_1 from '../../config/data/posts/image_post_1.jpeg';
+
+//MOCKED_DATA
+import { generatePosts } from '../../config/data/posts/posts';
+
 const Home = () => {
+  //MOCKED_DATA
+  const mockedPosts = generatePosts(20);
+
   //HOOKS
   const navigation = useNavigation();
 
-  const handleNavigation = () => {
-    navigation.navigate('Details');
+  //FUNCTIONS
+  const handleNavigation = (item) => {
+    navigation.navigate('Details', item);
   };
 
   return (
-    <View style={styles.container}>
-      <TouchableWithoutFeedback onPress={handleNavigation}>
-        <View>
-          <Text>Detalhes</Text>
-          <IconFE
-            name={'arrow-right-circle'}
-            color={colors.secondary}
-            size={20}
-          />
-        </View>
-      </TouchableWithoutFeedback>
-    </View>
+    <SafeAreaView style={styles.container}>
+      <StatusBar barStyle={'light-content'} backgroundColor={colors.primary} />
+      <FlatList
+        data={mockedPosts}
+        keyExtractor={(item) => String(item.id)}
+        renderItem={({ item }) => {
+          return (
+            <TouchableOpacity onPress={() => handleNavigation(item)}>
+              <View style={styles.cardContainer}>
+                <Image source={item.image} style={styles.cardImage} />
+                <Text style={styles.cardText}>{item.name}</Text>
+              </View>
+            </TouchableOpacity>
+          );
+        }}
+      />
+    </SafeAreaView>
   );
 };
 
@@ -39,6 +65,22 @@ const styles = StyleSheet.create({
   },
   footer: {
     flexDirection: 'row',
+  },
+  cardContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  cardImage: {
+    width: 200,
+    height: 300,
+    resizeMode: 'cover',
+    borderRadius: 16,
+  },
+  cardText: {
+    color: colors.secondary,
+    fontSize: 36,
+    fontFamily: 'MavenPro-Bold',
+    textTransform: 'uppercase',
   },
 });
 

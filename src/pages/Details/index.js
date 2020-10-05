@@ -1,14 +1,20 @@
 import React from 'react';
-import {View, StyleSheet, Text} from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 
-import Height from '../../components/Height/Height';
-import Distance from '../../components/Distance/Distance';
+//COMPONENTS
 import Avatars from '../../components/Avatars/Avatars';
+import Distance from '../../components/Distance/Distance';
+import Height from '../../components/Height/Height';
 
-const pages = () => {
+//STYLES
+import colors from '../../styles/colors';
+
+const Details = () => {
   return (
     <View style={styles.container}>
-      <Text>PAGES</Text>
+      <View style={styles.textContainer}>
+        <Text style={styles.text}>Details</Text>
+      </View>
       <View style={styles.footer}>
         <Avatars />
         <Distance />
@@ -21,13 +27,27 @@ const pages = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F0C',
+    backgroundColor: colors.primary,
     alignItems: 'center',
     justifyContent: 'center',
   },
   footer: {
     flexDirection: 'row',
+    width: '100%',
+    justifyContent: 'space-around',
+  },
+  textContainer: {
+    padding: 0,
+    margin: 0,
+  },
+  text: {
+    fontSize: 40,
+    height: 27,
+    lineHeight: 35,
+    fontFamily: 'MavenPro-Bold',
+    padding: 0,
+    color: colors.secondary,
   },
 });
 
-export default pages;
+export default Details;
